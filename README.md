@@ -1,12 +1,12 @@
 # Frmapping
-Librería para mapeo de campos de la base de datos y crear formulario automático
+Librería para mapeo de campos de la base de datos y crear formularios automático
 
 La libreria tiene que ser guardada en la carpeta app/Http => Laravel 5.*
-Se utiliza el use para mandarla llamar
+Se utiliza el use para mandarla a llamar
 
 `use App\Http\Libs\Frmapping\Form;`
 
-
+Se realiza la instancia:
 `$frm = new Form('users');`
 
 
@@ -26,5 +26,6 @@ true);`
 
 
 Nota:
-Por el momento solo genera inputs[text,password,email,number,e.t.c]
-Aun falta que pueda generar input[radio,checkbox,color,range] ó select
+
+* Por el momento solo genera inputs[text,password,email,number,e.t.c]
+* Aun falta que pueda generar input[radio,checkbox,color,range] ó select
