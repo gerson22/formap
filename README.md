@@ -4,22 +4,24 @@ Librería para mapeo de campos de la base de datos y crear formulario automátic
 La libreria tiene que ser guardada en la carpeta app/Http => Laravel 5.*
 Se utiliza el use para mandarla llamar
 
-use App\Http\Libs\Frmapping\Form;
+`use App\Http\Libs\Frmapping\Form;`
 
-$frm = new Form('users');
 
-/*
+`$frm = new Form('users');`
+
+
 * @array
 * El primer parametro es un array son los campos que serán visible o no visibles
 * @bool
 * El segundo parametro es el que decide si el primer parametro serán visibles o no 
-*/
-$frm_created = $frm->generate(
+
+
+`$frm_created = $frm->generate(
 [
     ['name'=>'username','icon'=>'user'],
     ['name'=>'email','icon'=>'envelope']
 ],
-true);
+true);`
 
 
 
