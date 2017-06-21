@@ -28,6 +28,7 @@ class Model
             $count = count($fss);
             $it = 0;
             $disallowed = 0;
+            $asDefault = ucfirst(str_replace("id","",str_replace("_"," ",$fd->Field)));
             if(count($fss) > 0){
                 foreach($fss as $fs){
                     $it++;
@@ -35,7 +36,7 @@ class Model
                         if($allowed){
                             $fdNew = (object)array(
                                         'Icon' => isset($fs['icon']) ? $fs['icon'] : '',
-                                        'As' => isset($fs['as']) ? $fs['as'] : $fd->Field,
+                                        'As' => isset($fs['as']) ? $fs['as'] : $asDefault,
                                         'Field' => $fd->Field,
                                         'Type' => $fd->Type,
                                         'Null' => $fd->Null,
@@ -53,7 +54,7 @@ class Model
                                 if($disallowed < 1){
                                     $fdNew = (object)array(
                                         'Icon' => '',
-                                        'As' => $fd->Field,
+                                        'As' => $asDefault,
                                         'Field' => $fd->Field,
                                         'Type' => $fd->Type,
                                         'Null' => $fd->Null,
@@ -73,7 +74,7 @@ class Model
             }else{
                 $fdNew = (object)array(
                     'Icon' => '',
-                    'As' => $fd->Field,
+                    'As' => $asDefault,
                     'Field' => $fd->Field,
                     'Type' => $fd->Type,
                     'Null' => $fd->Null,
