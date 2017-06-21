@@ -10,22 +10,30 @@ Se realiza la instancia:
 `$frm = new Form('users');`
 
 
+* @string
+* Establece el atributo id del formulario
+
+`frm->setId("frmUsers")`
+
+* @string
+* Establece el atributo method del formulario
+
+`frm->setMethod("POST")`
+
+* @string
+* Establece el atributo action del formulario
+
+`frm->setAction("/action.php")`
+
 * @array
-* El primer parametro es un array son los campos que serán visible o no visibles
-* @bool
-* El segundo parametro es el que decide si el primer parametro serán visibles o no 
+* Campos que serán visible
 
+`$frm->only(
+       array(
+          ['name' => 'fecha', 'as' => 'Fecha'],
+          ['name' => 'cantidad', 'as' => 'Cantidad'],
+          ['name' => 'total', 'as' => 'Total'],
+          ['name' => 'user_id', 'as' => 'Usuario'],
+          ['name' => 'producto_id', 'as' => 'Producto']
+));`
 
-`$frm_created = $frm->generate(
-[
-    ['name'=>'username','icon'=>'user'],
-    ['name'=>'email','icon'=>'envelope']
-],
-true);`
-
-
-
-Nota:
-
-* Por el momento solo genera inputs[text,password,email,number,e.t.c]
-* Aun falta que pueda generar input[radio,checkbox,color,range] ó select
