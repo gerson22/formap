@@ -9,16 +9,21 @@ Se utiliza el use para mandarla a llamar
 Se realiza la instancia:
 `$frm = new Form('users');`
 
+setId
 
 * @string
 * Establece el atributo id del formulario
 
 `frm->setId("frmUsers")`
 
+setMethod
+
 * @string
 * Establece el atributo method del formulario
 
 `frm->setMethod("POST")`
+
+setAction
 
 * @string
 * Establece el atributo action del formulario
