@@ -9,27 +9,28 @@ Se utiliza el use para mandarla a llamar
 Se realiza la instancia:
 `$frm = new Form('users');`
 
-setId
+setId()
 
 * @string
 * Establece el atributo id del formulario
 
 `frm->setId("frmUsers")`
 
-setMethod
+setMethod()
 
 * @string
 * Establece el atributo method del formulario
 
 `frm->setMethod("POST")`
 
-setAction
+setAction()
 
 * @string
 * Establece el atributo action del formulario
 
 `frm->setAction("/action.php")`
 
+only()
 * @array
 * Campos que serán visible
 
@@ -41,4 +42,19 @@ setAction
           ['name' => 'user_id', 'as' => 'Usuario'],
           ['name' => 'producto_id', 'as' => 'Producto']
 ));`
+
+except()
+* @array
+* Campos que no serán visible
+
+`$frm->except(
+       array(
+          ['name' => 'producto_id']
+));`
+
+all()
+* @void
+* Mapea todos los campos
+
+`$frm->all();`
 
