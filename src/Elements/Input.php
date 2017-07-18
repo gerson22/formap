@@ -4,7 +4,7 @@ namespace App\Http\Libs\Frmapping\Src\Elements;
 
 use App\Http\Libs\Frmapping\Config;
 
-class Input
+class Input implements Element
 {
     private $layout;
     private $name,$type,$icon,$required,$alias;
@@ -18,6 +18,9 @@ class Input
         $this->type = $dts->type;
         $this->icon = $dts->icon;
         $this->alias = $dts->alias;
+        return $this;
+    }
+    public function toHTML(){
         return $this->compiler();
     }
     private static function NullToRequerided($val){

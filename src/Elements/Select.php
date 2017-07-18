@@ -4,7 +4,7 @@ namespace App\Http\Libs\Frmapping\Src\Elements;
 
 use App\Http\Libs\Frmapping\Config;
 
-class Select
+class Select implements Element
 {
     private $layout;
     private $name,$icon,$alias;
@@ -16,6 +16,9 @@ class Select
         $this->name = $dts->name;
         $this->icon = $dts->icon;
         $this->alias = $dts->alias;
+        return $this;
+    }
+    public function toHTML(){
         return $this->compiler();
     }
     private function compiler(){
