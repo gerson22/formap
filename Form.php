@@ -4,6 +4,8 @@ namespace App\Http\Libs\Frmapping;
 
 use App\Http\Libs\Frmapping\Src\Elements\Input;
 use App\Http\Libs\Frmapping\Src\Elements\Select;
+use App\Http\Libs\Frmapping\Src\Elements\File;
+use App\Http\Libs\Frmapping\Src\Elements\Form as Frm;
 use App\Http\Libs\Frmapping\Src\Base\Model;
 
 class Form
@@ -24,12 +26,26 @@ class Form
      */
     $fields,
 
+     /**
+     * fields's Input form default.
+     *
+     * @var array
+     */
+    $fieldsInput,
+
     /**
      * field's form selected.
      *
      * @var Object
      */
-    $selected_fields;
+    $selected_fields,
+
+    /**
+     * extra field to add to form.
+     *
+     * @var Object
+     */
+    $extraFields;
 
     /**
      * Form formatted to HTML.
@@ -66,12 +82,16 @@ class Form
      */
     private $types = [
         'default'   => 'text',
+        'file'  => 'file',
+        'password'  => 'password',
+        'email'  => 'email',
         'int(11)'  => 'number'
     ];
 
 
     public function __construct($class){
         $this->model = new Model($class);
+        $this->fieldsInput = [];
         $this->selected_fields = (object)[
             'self'=>null,
             'visibility'=>false
@@ -93,6 +113,11 @@ class Form
         return $this->reBuild();
     }
 
+    public function add($ef){
+      $this->extraFields = $ef;
+      return $this->specifyFields($this->selected_fields->self,$this->selected_fields->visibility);
+    }
+
     public function only($sf = []){
         return $this->specifyFields($sf,true);
     }
@@ -105,6 +130,7 @@ class Form
     private function specifyFields($sf,$visibility=false){
         $this->selected_fields->self = $sf;
         $this->selected_fields->visibility = $visibility;
+        $this->model->setExtraFields($this->extraFields);
         $this->fields = $this->model->filterFields($this->selected_fields->self,$this->selected_fields->visibility);
         return $this->reBuild();
     }
@@ -112,8 +138,7 @@ class Form
         $id = isset($this->id) ? $this->id : "frm_{$this->model->getName()}";
         $method = isset($this->method) ? $this->method : "";
         $action = isset($this->action) ? $this->action : "";
-
-        $form = "<form id='{$id}' method='{$method}' action='{$action}'>\n";
+        $this->fieldsInput = [];
         foreach($this->fields as $field){
             $input = new Input();
             $dts = (object)array(
@@ -126,11 +151,11 @@ class Form
             switch($field->Field){
                 case 'email':
                     $dts->type = $dts->name;
-                    $form .= $input->create($dts);
+                    array_push($this->fieldsInput,$input->create($dts));
                 break;
                 case 'password':
                     $dts->type = $dts->name;
-                    $form .= $input->create($dts);
+                    array_push($this->fieldsInput,$input->create($dts));
                 break;
                 default:
                     switch($field->Type){
@@ -143,23 +168,33 @@ class Form
                                         'icon' => $field->Icon,
                                         'alias' => $field->As
                                     );
-                                    $form .= $select->create($dts);
+                                    array_push($this->fieldsInput,$select->create($dts));
                                 }else{
                                     $dts->type = $this->types[$field->Type];
-                                    $form .= $input->create($dts);
+                                    array_push($this->fieldsInput,$input->create($dts));
                                 }
                             }
                             break;
+                        case 'file':
+                            $file = new File();
+                            $dts->type = $field->Type;
+                            array_push($this->fieldsInput,$file->create($dts));
+                        break;
+                        case 'email':
+                            $dts->type = $field->Type;
+                            array_push($this->fieldsInput,$input->create($dts));
+                        break;
+                        case 'password':
+                            $dts->type = $field->Type;
+                            array_push($this->fieldsInput,$input->create($dts));
+                        break;
                         default:
-                            $form .= $input->create($dts);
+                            array_push($this->fieldsInput,$input->create($dts));
                             break;
                     }
                 break;
             }
-            $form .= "\n";
         }
-        $form .= '</form>';
-        $this->frmHTML = $form;
         return $this;
     }
     public function reBuild(){
@@ -169,8 +204,23 @@ class Form
         return $this;
     }
 
-    public function get(){
-        return isset($this->frmHTML) ? $this->frmHTML : null;
+    public function toHTML(){
+        if(count($this->fieldsInput) > 0){
+            $html = "";
+            foreach($this->fieldsInput as $field){
+                $html .= $field->toHTML();
+            }
+            $html .= "\n";
+            $frm = new Frm();
+            $dts = (object)array(
+                'name' => $this->id,
+                'method' => $this->method,
+                'action' => $this->action,
+                'fields' => $html
+            );
+            $this->frmHTML = $frm->create($dts)->toHTML();
+        }
+        return $this->frmHTML;
     }
 
 
