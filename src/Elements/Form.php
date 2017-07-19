@@ -4,18 +4,19 @@ namespace App\Http\Libs\Frmapping\Src\Elements;
 
 use App\Http\Libs\Frmapping\Config;
 
-class Select implements Element
+class Form implements Element
 {
     private $layout;
-    private $name,$icon,$alias;
+    private $name,$action,$method;
 
     public function __construct(){
-        $this->layout = Config::Layout()->Select;
+        $this->layout = Config::Layout()->Form;
     }
     public function create($dts){
+        $this->action = $dts->action;
+        $this->method = $dts->method;
         $this->name = $dts->name;
-        $this->icon = $dts->icon;
-        $this->alias = $dts->alias;
+        $this->fields = $dts->fields;
         return $this;
     }
     public function toHTML(){
@@ -24,14 +25,16 @@ class Select implements Element
     private function compiler(){
         $string = $this->layout;
         $patterns = array(
+            '/:action/',
+            '/:method/',
             '/:name/',
-            '/:icon/',
-            '/:alias/'
+            '/:fields/'
         );
         $bind = array(
+            $this->action,
+            $this->method,
             $this->name,
-            $this->icon,
-            $this->alias
+            $this->fields,
         );
         return preg_replace($patterns, $bind, $string);
     }

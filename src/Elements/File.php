@@ -4,13 +4,13 @@ namespace App\Http\Libs\Frmapping\Src\Elements;
 
 use App\Http\Libs\Frmapping\Config;
 
-class Select implements Element
+class File implements Element
 {
     private $layout;
     private $name,$icon,$alias;
 
     public function __construct(){
-        $this->layout = Config::Layout()->Select;
+        $this->layout = Config::Layout()->File;
     }
     public function create($dts){
         $this->name = $dts->name;
