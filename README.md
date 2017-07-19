@@ -36,10 +36,7 @@ only()
 
 `$frm->only(
        array(
-          ['name' => 'fecha', 'as' => 'Fecha'],
           ['name' => 'cantidad', 'as' => 'Cantidad'],
-          ['name' => 'total', 'as' => 'Total'],
-          ['name' => 'user_id', 'as' => 'Usuario'],
           ['name' => 'producto_id', 'as' => 'Producto']
 ));`
 
@@ -57,4 +54,19 @@ all()
 * Mapea todos los campos
 
 `$frm->all();`
+
+add()
+* @array
+* Agrega fields externos a la tabla mapeada
+
+`$frm->add(array(
+       ['name'=>'email','as' => 'Correo electronico', 'icon' => 'envelope'],
+       ['name'=>'password_confirmation','as' => 'Repetir contraseña', 'type' => 'password' , 'icon' => 'lock']
+));`
+
+toHTML()
+* @void
+* Después de especificar los campos a mapear convertir el Form en HTML
+
+`$frm->all()->toHtml();`
 
