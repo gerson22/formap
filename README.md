@@ -5,7 +5,7 @@ Librería para mapeo de campos de la base de datos y generar formularios automá
 La libreria tiene que ser guardada en la carpeta app/Http => Laravel 5.*
 Se utiliza el use para mandarla a llamar
 
-`use App\Http\Libs\Frmapping\Form;`
+`use App\Http\Libs\ForMap\Form;`
 
 Se realiza la instancia:
 `$frm = new Form('users');`
