@@ -1,4 +1,5 @@
-# Frmapping
+# ForMap
+
 Librería para mapeo de campos de la base de datos y generar formularios automáticamente
 
 La libreria tiene que ser guardada en la carpeta app/Http => Laravel 5.*
