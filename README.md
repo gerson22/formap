@@ -1,44 +1,75 @@
-# Frmapping
-Librería para mapeo de campos de la base de datos y crear formularios automático
+# Formap
 
-La libreria tiene que ser guardada en la carpeta app/Http => Laravel 5.*
-Se utiliza el use para mandarla a llamar
+Librería para mapeo de campos de la base de datos y generar formularios automáticamente
 
-`use App\Http\Libs\Frmapping\Form;`
+Mediante composer:
+
+`gerson22/formap:"dev-master"`
+
+
+`use Formap\Form;`
 
 Se realiza la instancia:
 `$frm = new Form('users');`
 
-setId
+setId()
 
 * @string
 * Establece el atributo id del formulario
 
 `frm->setId("frmUsers")`
 
-setMethod
+setMethod()
 
 * @string
 * Establece el atributo method del formulario
 
 `frm->setMethod("POST")`
 
-setAction
+setAction()
 
 * @string
 * Establece el atributo action del formulario
 
 `frm->setAction("/action.php")`
 
+only()
 * @array
 * Campos que serán visibles
 
 `$frm->only(
        array(
-          ['name' => 'fecha', 'as' => 'Fecha'],
           ['name' => 'cantidad', 'as' => 'Cantidad'],
-          ['name' => 'total', 'as' => 'Total'],
-          ['name' => 'user_id', 'as' => 'Usuario'],
           ['name' => 'producto_id', 'as' => 'Producto']
 ));`
+
+except()
+* @array
+* Campos que no serán visible
+
+`$frm->except(
+       array(
+          ['name' => 'producto_id']
+));`
+
+all()
+* @void
+* Mapea todos los campos
+
+`$frm->all();`
+
+add()
+* @array
+* Agrega fields externos a la tabla mapeada
+
+`$frm->add(array(
+       ['name'=>'email','as' => 'Correo electronico', 'icon' => 'envelope'],
+       ['name'=>'password_confirmation','as' => 'Repetir contraseña', 'type' => 'password' , 'icon' => 'lock']
+));`
+
+toHTML()
+* @void
+* Después de especificar los campos a mapear convertir el Form en HTML
+
+`$frm->all()->toHtml();`
 
