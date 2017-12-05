@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Libs\Frmapping\Src\Elements;
+namespace Formap\Elements;
 
-use App\Http\Libs\Frmapping\Config;
+use Formap\Config;
 
 class Input implements Element
 {

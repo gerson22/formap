@@ -1,8 +1,15 @@
 <?php
-namespace App\Http\Libs\Frmapping;
+namespace Formap;
 
 class Config {
-
+    /*
+    * There are differents params
+    * :name => column name
+    * :type => type field
+    * :alias => aka field
+    * :required => if column´s database is not null this field will be required
+    * :fields => fields form such as select, input,file etc
+    */
     public static function Layout(){
         return (object)array(
             'Input' => "<div class=\"md-form input-group\">

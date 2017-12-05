@@ -33,7 +33,7 @@ setAction()
 
 only()
 * @array
-* Campos que serán visible
+* Campos que serán visibles
 
 `$frm->only(
        array(

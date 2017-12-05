@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Libs\Frmapping;
+namespace Formap;
 
-use App\Http\Libs\Frmapping\Src\Elements\Input;
-use App\Http\Libs\Frmapping\Src\Elements\Select;
-use App\Http\Libs\Frmapping\Src\Elements\File;
-use App\Http\Libs\Frmapping\Src\Elements\Form as Frm;
-use App\Http\Libs\Frmapping\Src\Base\Model;
+use Formap\Elements\Input;
+use Formap\Elements\Select;
+use Formap\Elements\File;
+use Formap\Elements\Form as Frm;
+use Formap\Base\Model;
 
 class Form
 {
@@ -97,36 +97,83 @@ class Form
             'visibility'=>false
         ];
     }
-
+    /*
+    * @params
+    * - String
+    * @return
+    * - Form
+    */
     public function setId($id){
         $this->id = $id;
         return $this->reBuild();
     }
-
+/*
+    * @params
+    * - String
+    * @return
+    * - Form
+    */
     public function setMethod($method){
         $this->method = $method;
         return $this->reBuild();
     }
 
+    /*
+    * @params
+    * - String
+    * @return
+    * - Form
+    */
     public function setAction($id){
         $this->action = $id;
         return $this->reBuild();
     }
 
+    /*
+    * @params
+    * - Array
+    * @return
+    * - Form
+    */
     public function add($ef){
       $this->extraFields = $ef;
       return $this->specifyFields($this->selected_fields->self,$this->selected_fields->visibility);
     }
 
+    /*
+    * @params
+    * - Array
+    * @return
+    * - Form
+    */
     public function only($sf = []){
         return $this->specifyFields($sf,true);
     }
+
+    /*
+    * @params
+    * - Array
+    * @return
+    * - Form
+    */
     public function except($sf = []){
         return $this->specifyFields($sf);
     }
+
+    /*
+    * @return
+    * - Form
+    */
     public function all(){
         return $this->specifyFields([]);
     }
+
+    /*
+    * @params
+    * - String
+    * @return
+    * - Form
+    */
     private function specifyFields($sf,$visibility=false){
         $this->selected_fields->self = $sf;
         $this->selected_fields->visibility = $visibility;
@@ -134,6 +181,10 @@ class Form
         $this->fields = $this->model->filterFields($this->selected_fields->self,$this->selected_fields->visibility);
         return $this->reBuild();
     }
+    /*
+    * @return
+    * - Form
+    */
     private function build(){
         $id = isset($this->id) ? $this->id : "frm_{$this->model->getName()}";
         $method = isset($this->method) ? $this->method : "";
@@ -197,6 +248,10 @@ class Form
         }
         return $this;
     }
+    /*
+    * @return
+    * - Form
+    */
     public function reBuild(){
         if(!is_null($this->selected_fields->self)){
             return $this->build();
@@ -205,6 +260,9 @@ class Form
     }
 
     public function toHTML(){
+        if($this->selected_fields->self == null){
+          $this->all();
+        }
         if(count($this->fieldsInput) > 0){
             $html = "";
             foreach($this->fieldsInput as $field){
