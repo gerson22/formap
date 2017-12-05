@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Libs\Frmapping\Src\Elements;
+namespace Formap\Elements;
 
 
 interface Element{
-
     public function create($dts);
     public function toHTML();
 }

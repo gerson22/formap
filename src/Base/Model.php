@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Libs\Frmapping\Src\Base;
+namespace Formap\Elements;
 
-use DB;
+use Formap\Config;
+use Formap\Datos;
 
 class Model
 {
@@ -14,7 +15,8 @@ class Model
     }
 
     public function getFields(){
-      $this->fields = (array)DB::select("SHOW COLUMNS FROM {$this->name}");
+      $datos = new Datos();
+      $this->fields = (array)Datos->select("SHOW COLUMNS FROM {$this->name}");
       return $this->fields;
     }
 
