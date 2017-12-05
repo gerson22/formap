@@ -1,12 +1,15 @@
 <?php
 namespace Formap\Base\PDO;
 
-use Formap\Base\PDO\Connection
+use Formap\Base\PDO\Connection;
 class Datos
 {
     private $PDOLocal;
     private $Rows;
     private $Datos;
+    function __construct(){
+      $this->Conectar();
+    }
     function Conectar()
     {
         try
