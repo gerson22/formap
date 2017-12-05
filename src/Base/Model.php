@@ -1,9 +1,9 @@
 <?php
 
-namespace Formap\Elements;
+namespace Formap\Base;
 
-use Formap\Config;
-use Formap\Datos;
+use Formap\Base\PDO\Config;
+use Formap\Base\PDO\Datos;
 
 class Model
 {
@@ -16,7 +16,7 @@ class Model
 
     public function getFields(){
       $datos = new Datos();
-      $this->fields = (array)Datos->select("SHOW COLUMNS FROM {$this->name}");
+      $this->fields = (array)$datos->select("SHOW COLUMNS FROM {$this->name}");
       return $this->fields;
     }
 
@@ -32,7 +32,9 @@ class Model
         $realFields = [];
         $fds = $this->getFieldsWithFX($this->extraFields);
         $fss = $this->addSelectedFields($fss);
-        foreach($fds as $fd){
+        $this->validateFieldSelected($fss);
+        foreach($fds as $fieldDefault){
+            $fd = (object)$fieldDefault;
             $count = count($fss);
             $it = 0;
             $disallowed = 0;
@@ -137,6 +139,17 @@ class Model
     private function filterTypes($ts,$td){
       $tf = is_null($ts) ? $td : $ts;
       return $tf;
+    }
+
+    private function validateFieldSelected($fss){
+      if(is_array($fss)){
+        if(count($fss) > 0){
+          foreach($fss as $fs){
+            if(!is_array($fs))
+              throw new \Exception('The parameters must be arrays that contain arrays to identify columns');
+          }
+        }
+      }
     }
 
 }

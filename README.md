@@ -1,11 +1,13 @@
-# ForMap
+# Formap
 
 Librería para mapeo de campos de la base de datos y generar formularios automáticamente
 
-La libreria tiene que ser guardada en la carpeta app/Http => Laravel 5.*
-Se utiliza el use para mandarla a llamar
+Mediante composer:
 
-`use App\Http\Libs\ForMap\Form;`
+`gerson22/formap:"dev-master"`
+
+
+`use Formap\Form;`
 
 Se realiza la instancia:
 `$frm = new Form('users');`
