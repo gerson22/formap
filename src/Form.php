@@ -85,7 +85,7 @@ class Form
         'file'  => 'file',
         'password'  => 'password',
         'email'  => 'email',
-        'int(11)'  => 'number'
+        'int'  => 'number'
     ];
 
 
@@ -210,7 +210,7 @@ class Form
                 break;
                 default:
                     switch($field->Type){
-                        case 'int(11)':
+                        case (preg_match('/^int/', $field->Type) ? true : false):
                             if($field->Key !== 'PRI'){
                                 if($field->Key === 'MUL'){
                                     $select = new Select();
@@ -221,7 +221,7 @@ class Form
                                     );
                                     array_push($this->fieldsInput,$select->create($dts));
                                 }else{
-                                    $dts->type = $this->types[$field->Type];
+                                    $dts->type = $this->types[substr($field->Type,0,3)];
                                     array_push($this->fieldsInput,$input->create($dts));
                                 }
                             }
