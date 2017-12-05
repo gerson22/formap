@@ -31,7 +31,7 @@ setAction
 `frm->setAction("/action.php")`
 
 * @array
-* Campos que serán visible
+* Campos que serán visibles
 
 `$frm->only(
        array(
