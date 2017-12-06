@@ -51,7 +51,8 @@ define('LAYOUT_FILE',$file);
   DB_USERNAME=root
   DB_PASSWORD=
 ```
-
+### Usage
+First Option
 ```php
 <?php
 require 'global.php';
@@ -69,6 +70,47 @@ $frm = new Form($tableName);
 * @return String
 */
 $frm->all()->toHTML();
+```
+Second option with Laravel 5.*
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use Formap\Form;
+
+class UserController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+      $form = new Form('users');
+      $except = [
+        ['name' => 'created_at'],
+        ['name' => 'updated_at'],
+        ['name' => 'activo']
+      ];
+      return view('users',['form'=>$form->except($except)->toHTML();]);
+    }
+}
+
 ```
 
 ## Documentation
