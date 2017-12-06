@@ -27,7 +27,7 @@ $ composer require gerson22/formap
 ## Getting Started
 
 ### Create files on root directory
-global.php
+globals.php
 ```php
 <?php
 
@@ -55,7 +55,7 @@ define('LAYOUT_FILE',$file);
 First Option
 ```php
 <?php
-require 'global.php';
+require 'globals.php';
 require 'vendor/autoload.php';
 
 use Formap\Form;
@@ -73,6 +73,10 @@ $frm->all()->toHTML();
 ```
 Second option with Laravel 5.*
 
+add statment on public\index.php 
+```php
+  require_once __DIR__.'/../globals.php';
+```
 ```php
 <?php
 
