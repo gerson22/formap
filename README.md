@@ -23,8 +23,37 @@ $ composer require gerson22/formap
 }
 ```
 
+
+## Getting Started
+
+Create file global.php
 ```php
 <?php
+
+$input = "<input type=\":type\" id=':name' name=':name' class=\"form-control\" placeholder=\":alias\">";
+define('LAYOUT_INPUT',$input);//text,number,date,color etc
+
+$select = "<selectname=':name' id=':name'>
+            <option val='NULL' selected>Elige una opción</option>
+          </select>";
+define('LAYOUT_SELECT',$select);
+
+$file = "<input type='file' name=':name'>";
+define('LAYOUT_FILE',$file);
+```
+Create file .env on root directory
+```
+  DB_CONNECTION=mysql
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_DATABASE=auditoria
+  DB_USERNAME=root
+  DB_PASSWORD=
+```
+
+```php
+<?php
+require 'global.php';
 require 'vendor/autoload.php';
 
 use Formap\Form;
