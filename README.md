@@ -26,7 +26,8 @@ $ composer require gerson22/formap
 
 ## Getting Started
 
-Create file global.php
+### Create files on root directory
+global.php
 ```php
 <?php
 
@@ -41,7 +42,7 @@ define('LAYOUT_SELECT',$select);
 $file = "<input type='file' name=':name'>";
 define('LAYOUT_FILE',$file);
 ```
-Create file .env on root directory
+.env
 ```
   DB_CONNECTION=mysql
   DB_HOST=127.0.0.1
