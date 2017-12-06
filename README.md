@@ -107,7 +107,7 @@ class UserController extends Controller
         ['name' => 'updated_at'],
         ['name' => 'activo']
       ];
-      return view('users',['form'=>$form->except($except)->toHTML();]);
+      return view('users',['form'=>$form->except($except)->toHTML()]);
     }
 }
 
