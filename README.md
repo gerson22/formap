@@ -29,7 +29,15 @@ require 'vendor/autoload.php';
 
 use Formap\Form;
 
-$frm = new Form('users');//table name
+$tableName = 'users';
+/*
+* @params String $tableName
+*/
+$frm = new Form($tableName);
+
+/*
+* @return String
+*/
 $frm->all()->toHTML();
 ```
 
@@ -42,6 +50,9 @@ setId()
 * Establece el atributo id del formulario
 
 ```php
+/*
+* @return Formap\Form
+*/
 $frm->setId("frmUsers")
 ```
 
@@ -51,6 +62,9 @@ setMethod()
 * Establece el atributo method del formulario
 
 ```php
+/*
+* @return Formap\Form
+*/
 $frm->setMethod("POST")
 ```
 
@@ -60,6 +74,9 @@ setAction()
 * Establece el atributo action del formulario
 
 ```php
+/*
+* @return Formap\Form
+*/
 $frm->setAction("/action.php")
 ```
 
@@ -68,6 +85,10 @@ only()
 * Campos que serán visibles
 
 ```php
+/*
+* @param  Array
+* @return Formap\Form
+*/
 $frm->only(
        array(
           ['name' => 'cantidad', 'as' => 'Cantidad'],
@@ -80,6 +101,10 @@ except()
 * Campos que no serán visible
 
 ```php
+/*
+* @param  Array
+* @return Formap\Form
+*/
 $frm->except(
        array(
           ['name' => 'producto_id']
@@ -91,6 +116,9 @@ all()
 * Mapea todos los campos
 
 ```php
+/*
+* @return Formap\Form
+*/
 $frm->all();
 ```
 
@@ -99,6 +127,10 @@ add()
 * Agrega fields externos a la tabla mapeada
 
 ```php
+/*
+* @param  Array
+* @return Formap\Form
+*/
 $frm->add(array(
        ['name'=>'email','as' => 'Correo electronico', 'icon' => 'envelope'],
        ['name'=>'password_confirmation','as' => 'Repetir contraseña', 'type' => 'password' , 'icon' => 'lock']
@@ -110,6 +142,9 @@ toHTML()
 * Después de especificar los campos a mapear convertir el Form en HTML
 
 ```php
+/*
+* @return String
+*/
 $frm->all()->toHtml();
 ```
 
