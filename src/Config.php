@@ -17,9 +17,9 @@ class Config {
                   </select>";
         $file = "<input type='file' name=':name'>";
         return (object)array(
-            'Input' => isset(get_defined_constants(true)['user']['LAYOUT_INPUT']) ? get_defined_constants(true)['user']['LAYOUT_INPUT'] : $input,
-            'Select' => isset(get_defined_constants(true)['user']['LAYOUT_SELECT']) ? get_defined_constants(true)['user']['LAYOUT_SELECT'] : $select,
-            "File"  =>  isset(get_defined_constants(true)['user']['LAYOUT_FILE']) ? get_defined_constants(true)['user']['LAYOUT_FILE'] : $input,
+            'Input' =>  isset(get_defined_constants(true)['user']['LAYOUT_INPUT']) ? LAYOUT_INPUT : $input,
+            'Select' => isset(get_defined_constants(true)['user']['LAYOUT_SELECT']) ? LAYOUT_SELECT : $select,
+            "File"  =>  isset(get_defined_constants(true)['user']['LAYOUT_FILE']) ? LAYOUT_FILE : $input,
             'Form'  =>  "<form id=':name' method=':method' action=':action'>
                             <div>:fields</div>
                         </form>"
