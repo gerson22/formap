@@ -7,6 +7,12 @@
 
 Librería para mapeo de campos de la base de datos y generar formularios automáticamente
 
+## Require
+### 1.0.0
+php >= 7.0.26
+### 0.3.0
+php >= 5.3.3
+
 ## Installation
 
 ### With Composer
