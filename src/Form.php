@@ -103,7 +103,8 @@ class Form
     * @return
     * - Form
     */
-    public function setId($id){
+    public function setId($id) : Form
+    {
         $this->id = $id;
         return $this->reBuild();
     }
@@ -113,7 +114,8 @@ class Form
     * @return
     * - Form
     */
-    public function setMethod($method){
+    public function setMethod($method) : Form
+    {
         $this->method = $method;
         return $this->reBuild();
     }
@@ -124,7 +126,8 @@ class Form
     * @return
     * - Form
     */
-    public function setAction($id){
+    public function setAction($id) : Form
+    {
         $this->action = $id;
         return $this->reBuild();
     }
@@ -135,7 +138,8 @@ class Form
     * @return
     * - Form
     */
-    public function add($ef){
+    public function add(array ...$ef) : Form
+    {
       $this->extraFields = $ef;
       return $this->specifyFields($this->selected_fields->self,$this->selected_fields->visibility);
     }
@@ -146,7 +150,8 @@ class Form
     * @return
     * - Form
     */
-    public function only($sf = []){
+    public function only(array ...$sf): Form
+    {
         return $this->specifyFields($sf,true);
     }
 
@@ -156,7 +161,8 @@ class Form
     * @return
     * - Form
     */
-    public function except($sf = []){
+    public function except(array ...$sf): Form
+    {
         return $this->specifyFields($sf);
     }
 
@@ -164,7 +170,8 @@ class Form
     * @return
     * - Form
     */
-    public function all(){
+    public function all(): Form
+    {
         return $this->specifyFields([]);
     }
 
@@ -174,7 +181,8 @@ class Form
     * @return
     * - Form
     */
-    private function specifyFields($sf,$visibility=false){
+    private function specifyFields($sf,$visibility=false) : Form
+    {
         $this->selected_fields->self = $sf;
         $this->selected_fields->visibility = $visibility;
         $this->model->setExtraFields($this->extraFields);
@@ -185,81 +193,104 @@ class Form
     * @return
     * - Form
     */
-    private function build(){
-        $id = isset($this->id) ? $this->id : "frm_{$this->model->getName()}";
-        $method = isset($this->method) ? $this->method : "";
-        $action = isset($this->action) ? $this->action : "";
+    private function build() : Form
+    {
+        $this->id = isset($this->id) ? $this->id : "frm_{$this->model->getName()}";
+        $this->method = isset($this->method) ? $this->method : "POST";//Default value is POST
+        $this->action = isset($this->action) ? $this->action : "";
         $this->fieldsInput = [];
-        foreach($this->fields as $field){
-            $input = new Input();
-            $dts = (object)array(
-                'name' => $field->Field,
-                'type' => $this->types['default'],
-                'icon' => $field->Icon,
-                'required' => $field->Null,
-                'alias' => $field->As
-            );
-            switch($field->Field){
-                case 'email':
-                    $dts->type = $dts->name;
-                    array_push($this->fieldsInput,$input->create($dts));
-                break;
-                case 'password':
-                    $dts->type = $dts->name;
-                    array_push($this->fieldsInput,$input->create($dts));
-                break;
-                default:
-                    switch($field->Type){
-                        case (preg_match('/^int/', $field->Type) ? true : false):
-                            if($field->Key !== 'PRI'){
-                                if($field->Key === 'MUL'){
-                                    $select = new Select();
-                                    $dts = (object)array(
-                                        'name' => $field->Field,
-                                        'icon' => $field->Icon,
-                                        'alias' => $field->As
-                                    );
-                                    array_push($this->fieldsInput,$select->create($dts));
-                                }else{
-                                    $dts->type = $this->types[substr($field->Type,0,3)];
-                                    array_push($this->fieldsInput,$input->create($dts));
-                                }
-                            }
-                            break;
-                        case 'file':
-                            $file = new File();
-                            $dts->type = $field->Type;
-                            array_push($this->fieldsInput,$file->create($dts));
-                        break;
-                        case 'email':
-                            $dts->type = $field->Type;
-                            array_push($this->fieldsInput,$input->create($dts));
-                        break;
-                        case 'password':
-                            $dts->type = $field->Type;
-                            array_push($this->fieldsInput,$input->create($dts));
-                        break;
-                        default:
-                            array_push($this->fieldsInput,$input->create($dts));
-                            break;
-                    }
-                break;
-            }
-        }
+        $this->fieldAssigment($this->fields);
         return $this;
+    }
+
+    private function fieldAssigment($fields,$index = 0){
+      $field = $fields[$index];
+      $input = new Input();
+      $dts = (object)array(
+          'name' => $field->Field,
+          'type' => $this->types['default'],
+          'icon' => $field->Icon,
+          'required' => $field->Null,
+          'alias' => $field->As
+      );
+      switch($field->Field){
+          case 'email':
+          case 'correo'://Translate Spanish
+              $dts->type = $dts->name;
+              array_push($this->fieldsInput,$input->create($dts));
+          break;
+          case 'password':
+          case 'pass':
+          case 'pwd':
+              $dts->type = $dts->name;
+              array_push($this->fieldsInput,$input->create($dts));
+          break;
+          default:
+              switch($field->Type){
+                  case (preg_match('/^int/', $field->Type) ? true : false):
+                      if($field->Key !== 'PRI'){
+                          if($field->Key === 'MUL'){
+                              $select = new Select();
+                              $dts = (object)array(
+                                  'name' => $field->Field,
+                                  'icon' => $field->Icon,
+                                  'alias' => $field->As
+                              );
+                              array_push($this->fieldsInput,$select->create($dts));
+                          }else{
+                              $dts->type = $this->types[substr($field->Type,0,3)];
+                              array_push($this->fieldsInput,$input->create($dts));
+                          }
+                      }
+                      break;
+                  case 'file':
+                      $file = new File();
+                      $dts->type = $field->Type;
+                      array_push($this->fieldsInput,$file->create($dts));
+                  break;
+                  case 'email':
+                  case 'password':
+                  case 'color':
+                  case 'date':
+                  case 'datetime-local':
+                  case 'email':
+                  case 'month':
+                  case 'number':
+                  case 'range':
+                  case 'search':
+                  case 'tel':
+                  case 'time':
+                  case 'range':
+                  case 'url':
+                  case 'week':
+                      $dts->type = $field->Type;
+                      array_push($this->fieldsInput,$input->create($dts));
+                  break;
+                  default:
+                      array_push($this->fieldsInput,$input->create($dts));
+                      break;
+              }
+          break;
+      }
+      $index++;
+      if(count($fields) > $index){
+        $this->fieldAssigment($fields,$index);
+      }
     }
     /*
     * @return
     * - Form
     */
-    public function reBuild(){
+    public function reBuild() : Form
+    {
         if(!is_null($this->selected_fields->self)){
             return $this->build();
         }
         return $this;
     }
 
-    public function toHTML(){
+    public function toHTML() : String
+    {
         if($this->selected_fields->self == null){
           $this->all();
         }
