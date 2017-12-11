@@ -1,7 +1,7 @@
 {
   "name": "gerson22/formap",
   "description": "Librería para mapeo de campos de la base de datos y crear formularios dinámicos",
-  "minimum-stability": "0.3.0",
+  "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
     {
