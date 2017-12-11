@@ -1,7 +1,7 @@
 {
   "name": "gerson22/formap",
-  "description": "Librería para mapeo de campos de la base de datos y crear formularios automático",
-  "minimum-stability": "dev",
+  "description": "Librería para mapeo de campos de la base de datos y crear formularios dinámicos",
+  "minimum-stability": "0.3.0",
   "license": "MIT",
   "authors": [
     {
@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=5.3.3"
+    "php": ">=7.0.26"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
