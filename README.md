@@ -170,12 +170,18 @@ only()
 /*
 * @param  Array
 * @return Formap\Form
+* 0.3.0
 */
 $frm->only(
        array(
           ['name' => 'cantidad', 'as' => 'Cantidad'],
           ['name' => 'producto_id', 'as' => 'Producto']
 ));
+** 1.0.0
+$frm->only(
+          ['name' => 'cantidad', 'as' => 'Cantidad'],
+          ['name' => 'producto_id', 'as' => 'Producto']
+);
 ```
 
 except()
@@ -186,11 +192,13 @@ except()
 /*
 * @param  Array
 * @return Formap\Form
+* 0.3.0
 */
 $frm->except(
-       array(
           ['name' => 'producto_id']
-));
+);
+* 1.0.0
+$frm->except(['name' => 'producto_id']);
 ```
 
 all()
@@ -212,11 +220,18 @@ add()
 /*
 * @param  Array
 * @return Formap\Form
+* 0.3.0
 */
 $frm->add(array(
        ['name'=>'email','as' => 'Correo electronico', 'icon' => 'envelope'],
        ['name'=>'password_confirmation','as' => 'Repetir contraseña', 'type' => 'password' , 'icon' => 'lock']
 ));
+
+* 1.0.0
+$frm->add(
+       ['name'=>'email','as' => 'Correo electronico', 'icon' => 'envelope'],
+       ['name'=>'password_confirmation','as' => 'Repetir contraseña', 'type' => 'password' , 'icon' => 'lock']
+);
 ```
 
 toHTML()
