@@ -2,15 +2,15 @@
 namespace Formap\Base\PDO;
 
 use Formap\Base\PDO\Connection;
-class Datos
+class Data
 {
     private $PDOLocal;
     private $Rows;
-    private $Datos;
+    private $data;
     function __construct(){
-      $this->Conectar();
+      $this->connect();
     }
-    function Conectar()
+    function connect()
     {
         try
         {
@@ -22,7 +22,7 @@ class Datos
             echo "Error ".$e->getMessage();
         }
     }
-    function Desconectar()
+    function disconnect()
     {
         $this->PDOLocal=NULL;
     }
@@ -30,7 +30,7 @@ class Datos
     {
         try
         {
-            $Resultado=$this->PDOLocal->query($Query);
+            $Result=$this->PDOLocal->query($Query);
         }
         catch(PDOException $e)
         {
@@ -41,16 +41,16 @@ class Datos
     {
         try
         {
-            $Resultado=$this->PDOLocal->query($Query);
-            while($Row=$Resultado->fetch(\PDO::FETCH_ASSOC))
+            $Result=$this->PDOLocal->query($Query);
+            while($Row=$Result->fetch(\PDO::FETCH_ASSOC))
             {
-                $Datos[]=$Row;
+                $data[]=$Row;
             }
-            return $Datos;
+            return $data;
         }
         catch(PDOException $e)
         {
-            return $Datos;
+            return $data;
         }
     }
     function Delete($Query)
