@@ -3,7 +3,7 @@
 namespace Formap\Base;
 
 use Formap\Base\PDO\Config;
-use Formap\Base\PDO\Datos;
+use Formap\Base\PDO\Data;
 
 class Model
 {
@@ -15,8 +15,8 @@ class Model
     }
 
     public function getFields(){
-      $datos = new Datos();
-      $this->fields = (array)$datos->select("SHOW COLUMNS FROM {$this->name}");
+      $ata = new Data();
+      $this->fields = (array)$data->select("SHOW COLUMNS FROM {$this->name}");
       return $this->fields;
     }
 
