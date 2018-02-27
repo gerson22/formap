@@ -253,7 +253,6 @@ class Form
                   case 'color':
                   case 'date':
                   case 'datetime-local':
-                  case 'email':
                   case 'month':
                   case 'number':
                   case 'range':
