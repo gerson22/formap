@@ -1,0 +1,16 @@
+{
+  "input":{
+    "name": ":name",
+    "type": ":type",
+    "class": "form-control"
+  },
+  "select":{
+    "name": ":name",
+    "class": "form-control"
+  },
+  "file":{
+    "name": ":name",
+    "type": "file",
+    "class": "form-control"
+  }
+}
